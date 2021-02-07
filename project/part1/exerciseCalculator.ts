@@ -1,3 +1,8 @@
+interface Input {
+  target: number;
+  data: number[];
+}
+
 interface Result {
   periodLength: number;
   trainingDays: number;
@@ -8,6 +13,31 @@ interface Result {
   average: number;
 }
 
+// Function parsing inputs from the command line
+const parseArguments = (args: Array<string>): Input => {
+  if (args.length < 4) throw new Error('Not enough arguments')
+
+  if (isNaN(Number(args[2]))) {
+    throw new Error('Provided target is not a number value! Please try again...');
+  }
+
+  for (let i: number = 2; i < args.length; i++){
+    if (isNaN(Number(args[i]))){
+      throw new Error('Provided workout data must conist of only number values! Please try again...')
+    }
+  }
+
+  let target: number = (Number(args[2]));
+  let sliced: Array<string> = args.slice(3);
+  let data: Array<number> = sliced.map(index => Number(index));
+
+  return {
+    target: target,
+    data: data
+  }
+}
+
+// Function to analyze the physical activity for a given time period
 const calculateExercise = (target: number, data: number[]): Result => {
 
   let numberOfDays:number = data.length;
@@ -48,8 +78,10 @@ const calculateExercise = (target: number, data: number[]): Result => {
   return resultObject
 }
 
+
 try {
-  console.log(JSON.stringify(calculateExercise(2, [3, 0, 2, 4.5, 0, 3, 1])));
+  const { target, data } = parseArguments(process.argv);
+  console.log(JSON.stringify(calculateExercise(target, data)));
 } catch (e) {
   console.log('Something went wrong, error message: ', e.message);
 }
