@@ -1,13 +1,18 @@
-const calculateExercise = (target: number, data: number[]) => {
-  // Defining types for Result object
-  let numberOfDays: number;
-  let numberOfTrainingDays: number = 0;
-  let averageTime: number;
-  let targetReached: boolean;
-  let rating: number;
-  let ratingDescription: string;
+interface Result {
+  periodLength: number;
+  trainingDays: number;
+  success: boolean;
+  rating: number;
+  ratingDescription: string;
+  target: number;
+  average: number;
+}
 
-  numberOfDays = data.length;
+const calculateExercise = (target: number, data: number[]): Result => {
+
+  let numberOfDays:number = data.length;
+  let numberOfTrainingDays:number = 0
+  let rating:number, ratingDescription:string;
 
   for(let i:number =0; i < data.length; i++){
     if(data[i] !== 0){
@@ -15,9 +20,9 @@ const calculateExercise = (target: number, data: number[]) => {
     }
   }
 
-  averageTime = data.reduce((a, b) => a + b, 0) / data.length;
+  let averageTime:number = data.reduce((a, b) => a + b, 0) / data.length;
 
-  targetReached = (target <= averageTime);
+  let targetReached:boolean = (target <= averageTime);
 
   if (averageTime / target < 0.5) {
     rating = 1;
