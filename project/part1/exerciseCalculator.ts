@@ -38,7 +38,7 @@ const parseArguments = (args: Array<string>): Input => {
 };
 
 // Function to analyze the physical activity for a given time period
-const calculateExercise = (target: number, data: number[]): Result => {
+export const calculateExercise = (data: number[], target: number): Result => {
 
   const numberOfDays:number = data.length;
   let numberOfTrainingDays = 0;
@@ -82,7 +82,7 @@ const calculateExercise = (target: number, data: number[]): Result => {
 
 try {
   const { target, data } = parseArguments(process.argv);
-  console.log(JSON.stringify(calculateExercise(target, data)));
+  console.log(JSON.stringify(calculateExercise(data, target )));
 } catch (e) {
   /*eslint-disable */
   console.log('Something went wrong, error message: ', e.message);
