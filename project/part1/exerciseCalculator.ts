@@ -15,44 +15,45 @@ interface Result {
 
 // Function parsing inputs from the command line
 const parseArguments = (args: Array<string>): Input => {
-  if (args.length < 4) throw new Error('Not enough arguments')
+  if (args.length < 4) throw new Error('Not enough arguments');
 
   if (isNaN(Number(args[2]))) {
     throw new Error('Provided target is not a number value! Please try again...');
   }
 
-  for (let i: number = 2; i < args.length; i++){
+  for (let i = 2; i < args.length; i++){
     if (isNaN(Number(args[i]))){
-      throw new Error('Provided workout data must conist of only number values! Please try again...')
+      throw new Error('Provided workout data must conist of only number values! Please try again...');
     }
   }
 
-  let target: number = (Number(args[2]));
-  let sliced: Array<string> = args.slice(3);
-  let data: Array<number> = sliced.map(index => Number(index));
+  const target = (Number(args[2]));
+  const sliced: Array<string> = args.slice(3);
+  const data: Array<number> = sliced.map(index => Number(index));
 
   return {
     target: target,
     data: data
-  }
-}
+  };
+};
 
 // Function to analyze the physical activity for a given time period
 const calculateExercise = (target: number, data: number[]): Result => {
 
-  let numberOfDays:number = data.length;
-  let numberOfTrainingDays:number = 0
-  let rating:number, ratingDescription:string;
+  const numberOfDays:number = data.length;
+  let numberOfTrainingDays = 0;
+  let rating = 0; 
+  let ratingDescription = '';
 
-  for(let i:number =0; i < data.length; i++){
+  for(let i =0; i < data.length; i++){
     if(data[i] !== 0){
       numberOfTrainingDays++;
     }
   }
 
-  let averageTime:number = data.reduce((a, b) => a + b, 0) / data.length;
+  const averageTime:number = data.reduce((a, b) => a + b, 0) / data.length;
 
-  let targetReached:boolean = (target <= averageTime);
+  const targetReached:boolean = (target <= averageTime);
 
   if (averageTime / target < 0.5) {
     rating = 1;
@@ -65,7 +66,7 @@ const calculateExercise = (target: number, data: number[]): Result => {
     ratingDescription = 'Good work Champ 🏆 Keep at it 💃🏾';
   }
 
-  let resultObject = {
+  const resultObject = {
     periodLength: numberOfDays,
     trainingDays: numberOfTrainingDays,
     success: targetReached,
@@ -73,15 +74,17 @@ const calculateExercise = (target: number, data: number[]): Result => {
     ratingDescription: ratingDescription,
     target: target,
     average: averageTime
-  }
+  };
 
-  return resultObject
-}
+  return resultObject;
+};
 
 
 try {
   const { target, data } = parseArguments(process.argv);
   console.log(JSON.stringify(calculateExercise(target, data)));
 } catch (e) {
+  /*eslint-disable */
   console.log('Something went wrong, error message: ', e.message);
+  /*eslint-disable */
 }

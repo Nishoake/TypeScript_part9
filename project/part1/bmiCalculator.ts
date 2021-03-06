@@ -11,16 +11,15 @@ const parser = (args: Array<string>): Stats => {
     return {
       height: Number(args[2]),
       weight: Number(args[3])
-    }
+    };
   } else {
     throw new Error('Provided values were not numbers!');
   }
-}
+};
 
 // Function returning BMI
-export const calculateBmi = (height: number, weight: number): String => {
-  let bmi: number;
-  bmi = weight / Math.pow(height / 100, 2);
+export const calculateBmi = (height: number, weight: number): string => {
+  const bmi = weight / Math.pow(height / 100, 2);
 
   if (bmi < 18.5) {
     return 'Underweight';
@@ -31,11 +30,13 @@ export const calculateBmi = (height: number, weight: number): String => {
   } else {
     return 'Obese';
   }
-}
+};
 
 try {
   const { height, weight } = parser(process.argv);
   console.log(calculateBmi(height, weight));
 } catch (e) {
+  /*eslint-disable */
   console.log('Something went wrong, error message: ', e.message);
+  /*eslint-disable */
 }
