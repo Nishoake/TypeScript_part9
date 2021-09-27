@@ -1,14 +1,12 @@
 import express from 'express';
-// import diaryService from '../services/diaryService';
+import diagnosesService from '../services/diagnosesService';
 
 const router = express.Router();
 
 router.get('/', (_req, res) => {
-  // Do Something
-});
-
-router.post('/', (_req, res) => {
-  res.send('Saving a diary!');
-});
+  console.log(`Someone pinged /api/diagnoses`)
+  // res.send(`Someone pinged /api/diagnoses`)
+  res.send(diagnosesService.getDiagnoses());
+})
 
 export default router;
