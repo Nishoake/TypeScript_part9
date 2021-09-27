@@ -62,7 +62,7 @@ export const calculateExercise = (data: number[], target: number): Result => {
     rating = 2;
     ratingDescription = 'Progress 🔥 Let\'s keep pushing it 😤';
   } else if (averageTime / target > 1) {
-    rating = 1;
+    rating = 3;
     ratingDescription = 'Good work Champ 🏆 Keep at it 💃🏾';
   }
 
