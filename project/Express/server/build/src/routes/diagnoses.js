@@ -7,9 +7,7 @@ const express_1 = __importDefault(require("express"));
 const diagnosesService_1 = __importDefault(require("../services/diagnosesService"));
 const router = express_1.default.Router();
 router.get('/', (_req, res) => {
+    console.log(`Someone pinged /api/diagnoses`);
     res.send(diagnosesService_1.default.getDiagnoses());
-});
-router.post('/', (_req, res) => {
-    res.send('Saving a diary!');
 });
 exports.default = router;
