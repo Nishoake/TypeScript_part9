@@ -1,5 +1,6 @@
 import express from 'express';
 import patientService from '../services/patientService';
+import toNewPatient from '../utils';
 
 const router = express.Router();
 
@@ -12,20 +13,15 @@ router.get('/', (_req, res) =>  {
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 router.post('/', (req, res) => {
   try {
-    const { name, ssn, dateOfBirth, gender, occupation } = req.body
+    // function to type check the request body
+    const newPatient = toNewPatient(req.body);
     
-    const newPatient = patientService.addPatient({
-      name,
-      ssn,
-      dateOfBirth,
-      gender,
-      occupation,
-    });
+    const addedPatient = patientService.addPatient(newPatient);
 
-    res.json(newPatient);
-
+    res.json(addedPatient);
   } catch (e: any) {
-    res.status(400).send(e);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    res.status(400).send(e.message);
   }
 });
 
