@@ -1,12 +1,8 @@
 import React from 'react';
-
-interface ContentProps {
-  name: string;
-  exerciseCount: number;
-}
+import { CoursePart } from '../types'
 
 interface TotalProps {
-  courseParts: ContentProps[];
+  courseParts: CoursePart[];
 }
 
 const Total = (props: TotalProps) => {
