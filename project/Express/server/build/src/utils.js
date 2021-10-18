@@ -51,7 +51,8 @@ const toNewPatient = ({ name, ssn, dateOfBirth, gender, occupation }) => {
         ssn: parseSSN(ssn),
         dateOfBirth: parseDate(dateOfBirth),
         gender: parseGender(gender),
-        occupation: parseOccupation(occupation)
+        occupation: parseOccupation(occupation),
+        entries: []
     };
     return newEntry;
 };

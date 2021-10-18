@@ -11,6 +11,16 @@ router.get('/', (_req, res) => {
     console.log(`Someone pinged /api/patients`);
     res.send(patientService_1.default.getNonSensitivePatients());
 });
+router.get('/:id', (req, res) => {
+    console.log(`Someone pinged /api/patients:id`);
+    const patient = patientService_1.default.findById(req.params.id);
+    if (patient) {
+        res.send(patient);
+    }
+    else {
+        res.sendStatus(404);
+    }
+});
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 router.post('/', (req, res) => {
     try {

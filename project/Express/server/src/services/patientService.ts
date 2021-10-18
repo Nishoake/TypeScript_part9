@@ -4,17 +4,19 @@ import { Patient, NewPatient, NonSensitivePatient } from '../types';
 
 // import { v1 as uuid } from 'uuid';
 
-const getPatients = (): Patient[] =>  {
-  return patients;
+const findById = (id: string): Patient[] =>  {
+  const match = patients.filter(patient => patient.id === id);
+  return match;
 };
 
 const getNonSensitivePatients = (): NonSensitivePatient[] =>  {
-  return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
+  return patients.map(({ id, name, dateOfBirth, gender, occupation, entries }) => ({
     id,
     name,
     dateOfBirth,
     gender,
-    occupation
+    occupation,
+    entries
   }));
 };
 
@@ -30,7 +32,7 @@ const addPatient = (patient: NewPatient): Patient => {
 };
 
 export default {
-  getPatients,
+  findById,
   getNonSensitivePatients,
   addPatient
 };
